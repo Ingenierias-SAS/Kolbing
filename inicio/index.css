@@ -1,0 +1,954 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  background-color: #f4f4f4;
+  overflow-x: hidden;
+}
+
+/* Base responsive hardening */
+html { overflow-x: hidden; }
+img, picture, video, canvas, svg { max-width: 100%; height: auto; display: block; }
+iframe { max-width: 100%; }
+
+/* ===== HEADER ===== */
+header {
+  width: 100%;
+  background: linear-gradient(90deg, rgba(24,38,108,0.92), rgba(24,38,108,0.88));
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  -webkit-backdrop-filter: saturate(140%) blur(6px);
+  backdrop-filter: saturate(140%) blur(6px);
+  border-bottom: 1px solid rgba(198,160,58,0.25);
+}
+
+/* Contenedor principal */
+.header-container {
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 15px 40px; /* 🔹 Menor altura */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+}
+
+/* ===== LOGO ===== */
+.logo img {
+  height: 60px;
+  width: auto;
+}
+
+/* ===== MENÚ ===== */
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 50px;
+  align-items: center;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  color: #C6A03A; /* Mostaza corporativo */
+}
+
+/* Subrayado elegante animado */
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 2px;
+  width: 0;
+  background: #C6A03A;
+  transition: width 400ms ease;
+}
+
+nav ul li a:hover::after,
+nav ul li a.active::after {
+  width: 100%;
+}
+
+/* ===== BOTÓN WHATSAPP ===== */
+.btn-whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 2px solid white;
+  border-radius: 50px;
+  padding: 8px 16px;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.btn-whatsapp img {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1);
+}
+
+.btn-whatsapp:hover {
+  background: #C6A03A;
+  color: #18266C;
+}
+
+/* ===== MENÚ HAMBURGUESA ===== */
+#menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  position: absolute;
+  right: 30px;
+}
+
+
+/* ===== ESTADO TRANSPARENTE AL INICIO ===== */
+header.transparent {
+  background: rgba(0,0,0,0); /* completamente transparente */
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: none;
+  border-bottom-color: transparent;
+}
+
+/* Añadimos transición general para suavizar el cambio */
+header {
+  transition: background 0.8s ease, backdrop-filter 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .header-container {
+    padding: 15px 20px;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  nav ul {
+    display: none;
+    flex-direction: column;
+    background: #18266C;
+    position: absolute;
+    top: 85px;
+    left: 0;
+    width: 100%;
+    padding: 25px 0;
+    text-align: center;
+    gap: 20px;
+    box-shadow: 0 6px 10px rgba(0,0,0,0.5);
+  }
+
+  nav ul.active {
+    display: flex;
+  }
+
+  .btn-whatsapp {
+    display: none; /* Oculta el botón en móvil */
+  }
+
+  #menu-toggle {
+    display: block;
+  }
+
+  .logo img {
+    height: 55px;
+  }
+}
+
+
+
+/* ===== HERO ===== */
+.hero {
+  height: 100vh;              /* Ocupa toda la pantalla */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 0;              /* 🔹 Elimina espacio debajo del header */
+  overflow: hidden;
+}
+
+/* 🔹 Fondo del hero */
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 110vh;              /* 🔹 Extiende el fondo por detrás del header */
+  object-fit: cover;
+  filter: brightness(0.55);
+  z-index: -1;
+}
+
+/* 🔹 Contenido central */
+.hero-content {
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 60px;           /* 🔹 Ajuste visual por header fijo */
+}
+
+/* 🔹 Logo MUCHO más grande */
+.hero-logo {
+  width: 420px;               /* 🔹 Aumentado significativamente */
+  max-width: 90vw;            /* 🔹 Adaptable en pantallas pequeñas */
+  height: auto;
+  margin-bottom: 40px;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+}
+
+/* 🔹 Texto */
+.hero h2 {
+  font-size: 30px;
+  margin-bottom: 35px;
+  color: #fff;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+}
+
+/* 🔹 Botón */
+.btn-cta {
+  background: #C6A03A;
+  color: #18266C;
+  padding: 14px 40px;
+  border-radius: 35px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.btn-cta:hover {
+  background: #e0b94d;
+  transform: scale(1.05);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .hero {
+    height: 95vh;
+  }
+
+  .hero-bg {
+    height: 105vh;
+  }
+
+  .hero-logo {
+    width: 280px;             /* 🔹 Menor tamaño en tablet/móvil */
+    margin-bottom: 25px;
+  }
+
+  .hero h2 {
+    font-size: 22px;
+    margin-bottom: 25px;
+  }
+
+  .btn-cta {
+    font-size: 16px;
+    padding: 12px 30px;
+  }
+}
+
+
+/* ===== BARRA DE REDES PEQUEÑA Y BAJA ===== */
+.social-bar {
+  position: fixed;
+  bottom: 40px;           /* 🔹 Ahora más cerca del borde inferior */
+  left: 20px;
+  width: 48px;
+  background: #18266C;
+  border-radius: 22px;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 1500;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.social-bar:hover {
+  box-shadow: 0 0 10px rgba(24,38,108,0.7);
+}
+
+.social-bar a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: transform 0.3s ease, background 0.3s;
+}
+
+.social-bar a:hover {
+  transform: scale(1.1);
+  background: rgba(255,255,255,0.15);
+}
+
+.social-bar img {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .social-bar {
+    left: 10px;
+    bottom: 25px;        /* 🔹 También más abajo en móvil */
+    width: 44px;
+    gap: 8px;
+    padding: 8px 0;
+  }
+
+  .social-bar a {
+    width: 28px;
+    height: 28px;
+  }
+
+  .social-bar img {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+
+
+/* ===== FOOTER ===== */
+footer {
+  background: #18266C;
+  color: #d8d8d8;
+  text-align: center;
+  padding: 60px 20px 30px;
+}
+
+.footer-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 1100px;
+  margin: 0 auto 40px auto;
+  text-align: center;
+  align-items: start;
+}
+
+.footer-column h3 {
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #C6A03A;
+  display: inline-block;
+  padding-bottom: 4px;
+}
+
+.footer-column p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #d8d8d8;
+}
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 20px;
+}
+
+.footer-social img {
+  width: 32px;
+  height: 32px;
+  transition: transform 0.3s;
+}
+
+.footer-social img:hover {
+  transform: scale(1.2);
+}
+
+footer hr {
+  width: 70%;
+  margin: 20px auto;
+  border: none;
+  border-top: 1px solid #C6A03A;
+}
+
+.footer-bottom {
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .footer-info {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  nav ul {
+    display: none;
+    flex-direction: column;
+    background: #18266C;
+    position: absolute;
+    top: 60px;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  nav ul.active {
+    display: flex;
+  }
+
+  #menu-toggle {
+    display: block;
+    position: absolute;
+    right: 20px;
+  }
+
+  .footer-info {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .social-bar {
+    left: 10px;
+    width: 50px;
+  }
+}
+
+/* ===== Responsive Overrides (mobile hardening) ===== */
+/* Ensure hero uses small viewport height without forcing overflow */
+.hero { height: auto; min-height: 100svh; }
+.hero-bg { height: 100%; }
+
+/* Global media helpers */
+@media (max-width: 992px) {
+  .header-container { flex-wrap: wrap; }
+}
+
+@media (max-width: 480px) {
+  .header-container { padding: 12px 14px; }
+  .hero-logo { width: 220px; max-width: 85vw; }
+  .hero h2 { font-size: 18px; }
+  .btn-cta { font-size: 15px; padding: 10px 22px; }
+  .footer-social { flex-wrap: wrap; row-gap: 12px; }
+}
+
+/* ===== Animations ===== */
+@keyframes headerFadeDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Header animation on load */
+header.header-animate { animation: headerFadeDown 900ms ease both; }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes floatY {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+/* Staged hero entrance */
+.hero-content > .hero-logo,
+.hero-content > h2,
+.hero-content > .btn-cta { opacity: 0; }
+
+.hero-content > .hero-logo { animation: fadeInUp 1000ms ease both 200ms, floatY 14s ease-in-out 1800ms infinite; }
+.hero-content > h2 { animation: fadeInUp 1000ms ease both 450ms; }
+.hero-content > .btn-cta { animation: fadeInUp 1000ms ease both 800ms; }
+
+/* Social bar entrance */
+.social-bar { animation: fadeInLeft 900ms ease 900ms both; }
+
+/* Scroll reveal utility */
+.reveal { opacity: 0; transform: translateY(14px); }
+.reveal.is-visible { animation: fadeInUp 900ms ease both; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+/* ===== QUIÉNES SOMOS ===== */
+.quienes-somos {
+  width: 100%;
+  min-height: 100vh; /* 🔹 Ahora ocupa toda la pantalla verticalmente */
+  background: #ffffff;
+  color: #18266C;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 140px 20px 100px; /* 🔹 Añadido espacio superior para que se vea bajo el header */
+  box-sizing: border-box;
+}
+
+.qs-container {
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+}
+
+/* ===== TEXTO ===== */
+.qs-texto {
+  flex: 1;
+  min-width: 320px;
+  text-align: center;
+}
+
+.qs-texto h2 {
+  font-size: 38px;
+  color: #18266C;
+  margin-bottom: 25px;
+  border-bottom: 3px solid #C6A03A;
+  display: inline-block;
+  padding-bottom: 8px;
+  font-weight: 700;
+}
+
+.qs-texto p {
+  font-size: 19px;
+  line-height: 1.8;
+  color: #333;
+  max-width: 700px;
+  margin: 0 auto 45px auto;
+  text-align: center;
+}
+
+/* ===== BOTÓN SABER MÁS ===== */
+.btn-saber-mas {
+  background: #C6A03A;
+  color: #18266C;
+  padding: 14px 40px;
+  border-radius: 35px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 17px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.btn-saber-mas:hover {
+  background: #e0b94d;
+  transform: scale(1.05);
+}
+
+/* ===== IMAGEN ===== */
+.qs-imagen {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.qs-imagen img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 15px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.qs-imagen img:hover {
+  transform: scale(1.04);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .quienes-somos {
+    padding: 120px 20px 80px;
+  }
+
+  .qs-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 50px;
+  }
+
+  .qs-texto h2 {
+    font-size: 32px;
+  }
+
+  .qs-texto p {
+    max-width: 90%;
+    font-size: 17px;
+    margin: 0 auto 35px;
+  }
+
+  .qs-imagen img {
+    max-width: 350px;
+  }
+}
+
+/* ===== BANNER EMPRESARIAL ===== */
+.banner-empresarial {
+  position: relative;
+  width: 100%;
+  height: 60vh; /* 🔹 Altura moderada */
+  background: url("../img/banner-bg.png") center center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* 🔹 Capa oscura encima de la imagen para mejor contraste */
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(24, 38, 108, 0.75); /* Azul corporativo con opacidad */
+  z-index: 1;
+}
+
+/* 🔹 Contenido */
+.banner-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+  padding: 0 20px;
+}
+
+.banner-content h2 {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.7;
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  border-left: 5px solid #C6A03A; /* Toque mostaza corporativo */
+  padding-left: 20px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .banner-empresarial {
+    height: 50vh;
+  }
+
+  .banner-content h2 {
+    font-size: 20px;
+    line-height: 1.6;
+    padding-left: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .banner-empresarial {
+    height: auto;
+    padding: 80px 0;
+  }
+
+  .banner-content h2 {
+    font-size: 18px;
+    line-height: 1.5;
+    padding-left: 0;
+    border-left: none;
+  }
+}
+
+/* ===== NUESTROS SERVICIOS ===== */
+.nuestros-servicios {
+  width: 100%;
+  min-height: 100vh;
+  background: #ffffff;
+  color: #18266C;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 140px 20px 100px;
+  box-sizing: border-box;
+}
+
+.servicios-container {
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+}
+
+/* ===== VIDEO CON PORTADA ===== */
+.servicios-video {
+  flex: 1;
+  min-width: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  aspect-ratio: 16/9;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+}
+
+/* Portada */
+.video-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.video-wrapper:hover .video-thumb {
+  transform: scale(1.05);
+}
+
+/* ===== BOTÓN YOUTUBE SIN CÍRCULO ===== */
+.play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px; /* 🔹 Tamaño visible */
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); /* 🔹 Sombra sutil */
+}
+
+.play-btn:hover {
+  transform: translate(-50%, -50%) scale(1.08);
+  filter: brightness(1.2) drop-shadow(0 6px 14px rgba(0,0,0,0.5));
+}
+
+/* Iframe cuando se reproduce */
+.video-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 20px;
+}
+
+/* ===== TEXTO ===== */
+.servicios-texto {
+  flex: 1;
+  min-width: 320px;
+  text-align: center;
+}
+
+.servicios-texto h2 {
+  font-size: 38px;
+  color: #18266C;
+  margin-bottom: 25px;
+  border-bottom: 3px solid #C6A03A;
+  display: inline-block;
+  padding-bottom: 8px;
+  font-weight: 700;
+}
+
+.servicios-texto p {
+  font-size: 19px;
+  line-height: 1.8;
+  color: #333;
+  max-width: 700px;
+  margin: 0 auto 45px auto;
+  text-align: center;
+}
+
+/* ===== BOTÓN ===== */
+.servicios-texto .btn-saber-mas {
+  background: #C6A03A;
+  color: #18266C;
+  padding: 14px 40px;
+  border-radius: 35px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 17px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.servicios-texto .btn-saber-mas:hover {
+  background: #e0b94d;
+  transform: scale(1.05);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .nuestros-servicios {
+    padding: 120px 20px 80px;
+  }
+
+  .servicios-container {
+    flex-direction: column-reverse;
+    text-align: center;
+    gap: 50px;
+  }
+
+  .video-wrapper {
+    max-width: 500px;
+  }
+
+  .play-btn {
+    width: 80px;
+  }
+
+  .servicios-texto h2 {
+    font-size: 32px;
+  }
+
+  .servicios-texto p {
+    font-size: 17px;
+    max-width: 90%;
+    margin: 0 auto 35px;
+  }
+}
+
+@media (max-width: 576px) {
+  .video-wrapper {
+    max-width: 350px;
+  }
+
+  .play-btn {
+    width: 65px;
+  }
+
+  .servicios-texto h2 {
+    font-size: 28px;
+  }
+
+  .servicios-texto p {
+    font-size: 16px;
+  }
+}
+
+/* ===== BANNER CONTÁCTANOS ===== */
+.banner-contacto {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  background: url('../img/banner-contacto.png') center/cover no-repeat; /* 🔹 Cambia por tu imagen */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.banner-contacto::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6); /* 🔹 Oscurece la imagen */
+  z-index: 1;
+}
+
+.banner-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+/* ===== BOTÓN DE TEXTO ===== */
+.btn-contacto {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 60px;
+  font-weight: 800;
+  color: #dbe6ff;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  transition: all 0.4s ease;
+}
+
+/* Línea inferior */
+.btn-contacto::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: #2b5ee6;
+  transition: all 0.4s ease;
+  transform: translateX(-50%);
+}
+
+/* ===== EFECTO HOVER ===== */
+.btn-contacto:hover {
+  color: #ffffff;
+  text-shadow: 0 0 20px #4a8cff, 0 0 40px #2b5ee6;
+  transform: scale(1.05);
+}
+
+.btn-contacto:hover::after {
+  width: 100%;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .btn-contacto {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 576px) {
+  .banner-contacto {
+    height: 45vh;
+  }
+  .btn-contacto {
+    font-size: 32px;
+  }
+}
+
