@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
   toReveal.forEach(el => io.observe(el));
 });
 
-// Abrir enlaces en pestaña nueva (sin tocar el HTML)
+// Abrir solo enlaces EXTERNOS en nueva pestaña; los .html internos quedan igual
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll('a[href]').forEach(a => {
     const href = a.getAttribute('href');
@@ -82,8 +82,22 @@ document.addEventListener("DOMContentLoaded", () => {
     if (lower.startsWith('#') || lower.startsWith('mailto:') || lower.startsWith('tel:') || lower.startsWith('javascript:')) {
       return;
     }
-    a.setAttribute('target', '_blank');
-    a.setAttribute('rel', 'noopener noreferrer');
+
+    let url;
+    try { url = new URL(href, window.location.href); } catch { return; }
+
+    const isSameOrigin = url.origin === window.location.origin;
+    const isHtmlPage = /\.html(\?|#|$)/i.test(url.pathname);
+
+    if (!isSameOrigin) {
+      // Enlaces externos -> nueva pestaña
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener noreferrer');
+    } else if (isHtmlPage) {
+      // Navegación interna a .html -> misma pestaña
+      a.removeAttribute('target');
+      a.removeAttribute('rel');
+    }
   });
 });
 
